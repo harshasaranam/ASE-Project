@@ -1,22 +1,17 @@
 body
 { 	background-color : white;
+	align-center: center;
+	
 }
 h1
 {	color: purple;
 	font-family: calibri;
     	font-size: 55px;
 }
-p
-{	color: purple;
+.weatherModule {
+  background: #f2f2f2;
+  height: 150px;
+  width: 250px;
+  border: 1px dashed #ccc;
+  padding: 1em;
 }
-/*.button
-{	background-color: white;
-	border: none;
-	color: purple;
-	padding: 15px 30px;
-	text-align: center;
-	text-decoration: none;
-	font-size :20px;
-	margin: 4px 2px;
-	cursor: pointer;
-}*/}

@@ -1,15 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="" data-ng-app="GoogleDirection">
 <head>
+<meta t="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Welcome</title>
 <link rel="stylesheet" href="styling.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js" type="application/javascript"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWhSE1HAi753_M8rcFTfcbBXUQInf8y6c&v=3.exp&sensor=true"></script>
+<link rel="stylesheet" href="styling.css">
+  
 <style>
+#map-canvas 
+{
+    width: 800px;
+    height: 800px;
+	color: purple;
+}
 .button
 {	background-color: white;
 	border-radius: 8px;
 	border: none;
 	color: purple;
-	padding: 0px 0px;
+	padding: 10px 2px;
 	text-align: center;
 	text-decoration: none;
 	font-size :20px;
@@ -21,7 +33,27 @@
 .button:hover
 {	background-color: purple;
 	color: white;
-	border-radius: 50%;
+	border-radius: 100%;
+	
+}
+.button1
+{	background-color: purple;
+	border-radius: 8px;
+	border: none;
+	color: white;
+	padding: 10px 2px;
+	text-align: center;
+	text-decoration: none;
+	font-size :20px;
+	margin: 10px;
+	cursor: pointer;
+	display: inline-block;
+	transition: all 0.5s;
+}
+.button1:hover
+{	background-color: white;
+	color: purple;
+	border-radius: 100%;
 	
 }
 input[type=text], select {
@@ -30,8 +62,16 @@ input[type=text], select {
     margin: 2px 0;
     display: inline-block;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
     box-sizing: border-box;
+}
+#rcorners1 
+{
+    border-radius: 8px;
+    background: "purple";
+    padding: 5px;
+    width: 380px;
+    height: 120px;
 }
 
 </style>
@@ -39,14 +79,58 @@ input[type=text], select {
 <body>
 <center>
 <h1>GET UR <i><q>DESIRED ROUTE</q></i> </br>AND</br> <i><q>WEATHER CONDITIONS</q></i></h1>
-<table bgcolor="purple">
+<tr>
+<table id="rcorners1" bgcolor="purple" class="wrapp" ng-controller="googlemapoutput">
 <td><form>
-<input type="text" name="source" placeholder="enter your source"></br>
-<input type="text" name="destination" placeholder="enter your destination"><br/>
+<input type="text" ng-model="startlocation" id="startlocation"  placeholder="enter your source"/></br>
+<input type="text" ng-model="endlocation" id="endlocation"  placeholder="enter your destination"/><br/>
 </form></td>
 </br>
-<td><button class="button" style="vertical-align:middle" type="submit"><a class="button" href="home.html"><b>GET DETAILS</b></a></button></td>
+<td><button class="button" style="vertical-align:middle" id="btn" ng-click="calcRoute()"><b>GET DETAILS</b></button></td>
 </table>
+</br>
+</br>
+<div id="map-canvas" style="height: 400px;"></div>
 </center>
 </body>
 </html>
+
+
+<script>
+angular.module('GoogleDirection', [])
+.controller('googlemapoutput', function ($scope) 
+{
+
+    var map;
+    var mapOptions;
+    var directionsDisplay = new google.maps.DirectionsRenderer({draggable: true});
+    var directionsService = new google.maps.DirectionsService();
+
+    $scope.initialize = function () 
+	{
+          var pos = new google.maps.LatLng(0, 0); 
+          var mapOptions = {zoom: 3,center: pos};
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    };
+    $scope.calcRoute = function ()
+	{     var end = document.getElementById('endlocation').value;
+          var start = document.getElementById('startlocation').value;
+		  var request = {origin: start, destination: end, travelMode: google.maps.TravelMode.DRIVING};
+
+          directionsService.route(request, function (response, status)
+		  {     if (status == google.maps.DirectionsStatus.OK) 
+				{
+				directionsDisplay.setMap(map);
+                directionsDisplay.setDirections(response);
+                console.log(status);
+                }
+           }  );
+    };
+
+    google.maps.event.addDomListener(window, 'load', $scope.initialize);
+});
+
+
+
+</script>

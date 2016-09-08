@@ -43,8 +43,8 @@
 	color: purple;
 	border-radius: 50%;
 }
-input[type=email], select {
-    width: 20%;
+input[type=email], select 
+{   width: 20%;
     padding: 12px 20px;
     margin: 2px 0;
     display: inline-block;
@@ -52,8 +52,8 @@ input[type=email], select {
     border-radius: 4px;
     box-sizing: border-box;
 }
-input[type=password], select {
-    width: 20%;
+input[type=password], select 
+{	width: 20%;
     padding: 12px 20px;
     margin: 2px 0;
     display: inline-block;
@@ -62,16 +62,30 @@ input[type=password], select {
     box-sizing: border-box;
 }
 </style>
+<script type="text/javascript">
+function checkinfo() 
+{   var emailid = document.forms["login"]["email"].value;
+    var pass = document.forms["login"]["password"].value;
+    
+	if (emailid == null || emailid == "") {
+        alert("email must be filled out");
+        return false;
+    }
+	if (pass == null || pass == "") {
+        alert("password must be filled out");
+        return false;
+    }
+}
+</script>
 </head>
 <body>
-<center>
+<center></br></br></br></br></br></br></br></br></br></br></br>
 <h1>LOGON WITH UR CREDENTIALS</h1>
-<form>
-<input type="email" type="email" name="email" placeholder="email id"/><br/>
-<input type="password" name="password" placeholder="password"/><br/>
+<form name="login" action="home.html" onsubmit="return checkinfo();" method="post">
+<input type="email" id="email" name="email" placeholder="email id" /><br/>
+<input type="password" id="password" name="password" placeholder="password" /><br/>
 </form>
-<button class="button1" style="vertical-align:middle" type="submit"><a class="button1" href="home.html"><b>SUBMIT</b></a></button>
-<button class="button2" style="vertical-align:middle" type="reset"><b>RESET</b></a></button>
+<button class="button1" style="vertical-align:middle" type="submit"><a class="button1" href="home.html"><b>LOGIN</b></a></button>
 </center>
 </body>
 </html>

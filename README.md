@@ -4,7 +4,7 @@ Student class ID-47
 Team-11
 hello,
 
-this is my ASE project.
+this is my ASE repository
 
 LAB ASSIGNMENT-1::https://github.com/harshasaranam/ASE-Project/wiki/Lab-Assignment-1
 

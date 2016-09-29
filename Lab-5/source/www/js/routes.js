@@ -28,6 +28,12 @@ angular.module('app.routes', [])
     controller: 'homeCtrl'
   })
 
+  .state('knowledgeService', {
+    url: '/page5',
+    templateUrl: 'templates/knowledgeService.html',
+    controller: 'knowledgeServiceCtrl'
+  })
+
 $urlRouterProvider.otherwise('/page2')
 
   

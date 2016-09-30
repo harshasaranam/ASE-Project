@@ -4,7 +4,7 @@
         <div class="spacer" style="width: 300px; height: 18px;"></div>
         <form id="home-form4" class="list">
             <label class="item item-input" id="home-input8">
-                <input type="text" placeholder="enter ur text">
+                <input type="text" placeholder="enter ur text" id="input">
             </label>
         </form>
         <button id="home-button7" class="button button-calm  button-block">SPEECH</button>
@@ -15,5 +15,43 @@
         </div>
         <div class="spacer" style="height: 100px;"></div>
         <a ui-sref="knowledgeService" id="home-button8" class="button button-calm  button-block">KNOWLEDGE SERVICE</a>
+        <script>
+        
+function startConverting() {
+        if ('webkitSpeechRecognition' in window) {
+            var speechRecognizer = new webkitSpeechRecognition(input);
+            speechRecognizer.continuous = true;
+            speechRecognizer.interimResults = true;
+            speechRecognizer.lang = 'en-IN';
+            speechRecognizer.start();
+            var finalTranscripts = '';
+            speechRecognizer.onresult = function(event) {
+                var interimTranscripts = '';
+                for (var i = event.resultIndex; i < event.results.length; i++) {
+                    var transcript = event.results[i][0].transcript;
+                    transcript.replace("\n", "<br>");
+                    if (event.results[i].isFinal) {
+                        finalTranscripts += transcript;
+                        var speechresult = finalTranscripts;
+                        console.log(speechresult);
+                        if (speechresult) {
+                            responsiveVoice.speak(speechresult, "UK English Female", {
+                                pitch: 1
+                            }, {
+                                rate: 1
+                            });
+                        }
+                    } else {
+                        interimTranscripts += transcript;
+                    }
+                }
+                r.innerHTML = finalTranscripts + '<span style="color:#999">' + interimTranscripts + '</span>';
+            };
+            speechRecognizer.onerror = function(event) {};
+        } else {
+            r.innerHTML = 'Your browser is not supported. If google chrome, please upgrade!';
+        }
+    }
+</script>
     </ion-content>
 </ion-view>

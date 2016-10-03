@@ -17,6 +17,9 @@ angular.module('starter', ['ionic'])
            // Handle the error case
        });
   };
+    
+  
+
  
   $scope.record = function() {
     var recognition = new SpeechRecognition();

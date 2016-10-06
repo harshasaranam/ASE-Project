@@ -1,4 +1,4 @@
-# ASE-Project
+# ASE-ASSIGNMENTS
 
 Student class ID-47
 Team-11
@@ -16,3 +16,4 @@ LAB ASSIGNMENT-4::https://github.com/harshasaranam/ASE-Project/wiki/Lab-Assignme
 
 LAB ASSIGNMENT-5::https://github.com/harshasaranam/ASE-Project/wiki/Lab-Assignment-5
 
+LAB ASSIGNMENT-6::https://github.com/harshasaranam/ASE-Project/wiki/Lab-Assignment-6

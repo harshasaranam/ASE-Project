@@ -67,7 +67,7 @@ public class activity_maps extends FragmentActivity implements OnMapReadyCallbac
             }
         };
         LatLng userCurrentLocationCorodinates = null;
-        double latitute = 0, longitude = 0;
+        double latitute = 39.027541, longitude = -94.575269;
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat
                 .checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)

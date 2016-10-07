@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
+
 import static com.sourcey.harsha.MainActivity.browse_flag;
 import static com.sourcey.harsha.MainActivity.cam_flag;
 import static com.sourcey.harsha.MainActivity.picturePath;
@@ -36,8 +37,7 @@ public class activity_maps extends FragmentActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 //        getActionBar().setTitle("Map location");
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
@@ -46,9 +46,8 @@ public class activity_maps extends FragmentActivity implements OnMapReadyCallbac
         mMap = googleMap;
         geocoder = new Geocoder(this);
         StringBuilder userAddress = new StringBuilder();
-        // Add a marker in Sydney and move the camera
-        LocationManager userCurrentLocation = (LocationManager) this
-                .getSystemService(Context.LOCATION_SERVICE);
+
+        LocationManager userCurrentLocation = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         LocationListener userCurrentLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
@@ -72,25 +71,15 @@ public class activity_maps extends FragmentActivity implements OnMapReadyCallbac
         };
         LatLng userCurrentLocationCorodinates = null;
         double latitute = 0, longitude = 0;
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat
-                .checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             //show message or ask permissions from the user.
             return;
         }
         //Getting the current location of the user.
-        userCurrentLocation.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                0, 0, userCurrentLocationListener);
-        System.out.println("Gps provider ::::lat::" + userCurrentLocation
-                .getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude() + "::long::" + userCurrentLocation
-                .getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude());
-        latitute = userCurrentLocation
-                .getLastKnownLocation(LocationManager.GPS_PROVIDER)
-                .getLatitude();
-        longitude = userCurrentLocation
-                .getLastKnownLocation(LocationManager.GPS_PROVIDER)
-                .getLongitude();
+        userCurrentLocation.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, userCurrentLocationListener);
+        System.out.println("Gps provider ::::lat::" + userCurrentLocation.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude() + "::long::" + userCurrentLocation.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude());
+        latitute = userCurrentLocation.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude();
+        longitude = userCurrentLocation.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude();
         userCurrentLocationCorodinates = new LatLng(latitute, longitude);
         //Getting the address of the user based on latitude and longitude.
         try {
@@ -99,9 +88,7 @@ public class activity_maps extends FragmentActivity implements OnMapReadyCallbac
 
             if (cam_flag) {
                 System.out.println("in cam path----------------->cam flag ::" + cam_flag);
-                mMap.addMarker(new MarkerOptions().position(userCurrentLocationCorodinates)
-                        .title("Your current address.").snippet(userAddress.toString())
-                        .icon(BitmapDescriptorFactory.fromBitmap(thumbnail)));//Getting bitmap pic from PhotoActivity page.
+                mMap.addMarker(new MarkerOptions().position(userCurrentLocationCorodinates).title("Your current address.").snippet(userAddress.toString()).icon(BitmapDescriptorFactory.fromBitmap(thumbnail)));//Getting bitmap pic from PhotoActivity page.
                 //to locate a pic from drawable folder -->BitmapDescriptorFactory.fromResource(R.drawable.marker_maps)));
 
 
@@ -109,15 +96,11 @@ public class activity_maps extends FragmentActivity implements OnMapReadyCallbac
 
 
                 System.out.println("i am in browse path::.............->>>>>>>browse flag:" + browse_flag);
-                mMap.addMarker(new MarkerOptions().position(userCurrentLocationCorodinates)
-                        .title("Your current address.").snippet(userAddress.toString())
-                        .icon(BitmapDescriptorFactory.fromPath(picturePath)));
+                mMap.addMarker(new MarkerOptions().position(userCurrentLocationCorodinates).title("Your current address.").snippet(userAddress.toString()).icon(BitmapDescriptorFactory.fromPath(picturePath)));
 
             } else {
                 System.out.println("in default map---->");
-                mMap.addMarker(new MarkerOptions().position(userCurrentLocationCorodinates)
-                        .title("Your current address.").snippet(userAddress.toString())
-                        .icon((BitmapDescriptorFactory.defaultMarker())));//getting default marker incase if we havent updated any pic yet.
+                mMap.addMarker(new MarkerOptions().position(userCurrentLocationCorodinates).title("Your current address.").snippet(userAddress.toString()).icon((BitmapDescriptorFactory.defaultMarker())));//getting default marker incase if we havent updated any pic yet.
 
             }
 
@@ -129,4 +112,4 @@ public class activity_maps extends FragmentActivity implements OnMapReadyCallbac
         //Setting the zoom level of the map.
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userCurrentLocationCorodinates, 7));
     }
-}⁠⁠⁠⁠
+}

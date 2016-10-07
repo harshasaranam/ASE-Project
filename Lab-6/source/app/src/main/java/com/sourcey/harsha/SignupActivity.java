@@ -39,6 +39,7 @@ public class SignupActivity extends AppCompatActivity {
     private Button btnSelect;
     private ImageView ivImage;
     private String userChoosenTask;
+    public static Bitmap thumbnail;
 
     @Bind(R.id.input_name) EditText _nameText;
     @Bind(R.id.input_address) EditText _addressText;

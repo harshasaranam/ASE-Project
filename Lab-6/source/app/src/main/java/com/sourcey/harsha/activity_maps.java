@@ -21,12 +21,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
-
+import static com.sourcey.harsha.MainActivity.browse_flag;
+import static com.sourcey.harsha.MainActivity.cam_flag;
+import static com.sourcey.harsha.MainActivity.picturePath;
+import static com.sourcey.harsha.SignupActivity.thumbnail;//getting pix taken from PhotoActivity module.
 
 public class activity_maps extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     public Geocoder geocoder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +71,7 @@ public class activity_maps extends FragmentActivity implements OnMapReadyCallbac
             }
         };
         LatLng userCurrentLocationCorodinates = null;
-        double latitute = 39.027541, longitude = -94.575269;
+        double latitute = 0, longitude = 0;
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat
                 .checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -78,35 +82,51 @@ public class activity_maps extends FragmentActivity implements OnMapReadyCallbac
         //Getting the current location of the user.
         userCurrentLocation.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                 0, 0, userCurrentLocationListener);
+        System.out.println("Gps provider ::::lat::" + userCurrentLocation
+                .getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude() + "::long::" + userCurrentLocation
+                .getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude());
         latitute = userCurrentLocation
                 .getLastKnownLocation(LocationManager.GPS_PROVIDER)
                 .getLatitude();
         longitude = userCurrentLocation
                 .getLastKnownLocation(LocationManager.GPS_PROVIDER)
                 .getLongitude();
-        userCurrentLocationCorodinates = new LatLng(latitute,longitude);
+        userCurrentLocationCorodinates = new LatLng(latitute, longitude);
         //Getting the address of the user based on latitude and longitude.
         try {
-            List<Address> addresses = geocoder.getFromLocation(latitute, longitude, 1);
-            Address address = addresses.get(0);
-            userAddress =  new StringBuilder();
-            for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
-                userAddress.append(address.getAddressLine(i)).append("\t");
+
+            System.out.println("cam flag::" + cam_flag + ">>>>>>>>browse flag::: " + browse_flag);
+
+            if (cam_flag) {
+                System.out.println("in cam path----------------->cam flag ::" + cam_flag);
+                mMap.addMarker(new MarkerOptions().position(userCurrentLocationCorodinates)
+                        .title("Your current address.").snippet(userAddress.toString())
+                        .icon(BitmapDescriptorFactory.fromBitmap(thumbnail)));//Getting bitmap pic from PhotoActivity page.
+                //to locate a pic from drawable folder -->BitmapDescriptorFactory.fromResource(R.drawable.marker_maps)));
+
+
+            } else if (browse_flag) {
+
+
+                System.out.println("i am in browse path::.............->>>>>>>browse flag:" + browse_flag);
+                mMap.addMarker(new MarkerOptions().position(userCurrentLocationCorodinates)
+                        .title("Your current address.").snippet(userAddress.toString())
+                        .icon(BitmapDescriptorFactory.fromPath(picturePath)));
+
+            } else {
+                System.out.println("in default map---->");
+                mMap.addMarker(new MarkerOptions().position(userCurrentLocationCorodinates)
+                        .title("Your current address.").snippet(userAddress.toString())
+                        .icon((BitmapDescriptorFactory.defaultMarker())));//getting default marker incase if we havent updated any pic yet.
+
             }
-            userAddress.append(address.getCountryName()).append("\t");
+
+
+        } catch (Exception e) {
+            System.out.print(e.toString() + "exception occured .............");
 
         }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-        //Setting our image as the marker icon.
-        mMap.addMarker(new MarkerOptions().position(userCurrentLocationCorodinates)
-                .title("Your current address.").snippet(userAddress.toString())
-                .icon(BitmapDescriptorFactory.fromResource(R.id.ivImage)));
         //Setting the zoom level of the map.
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userCurrentLocationCorodinates, 7));
-
-
     }
-}
+}⁠⁠⁠⁠

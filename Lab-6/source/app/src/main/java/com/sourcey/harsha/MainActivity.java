@@ -1,43 +1,44 @@
-package com.sourcey.harsha;
-
+package  com.sourcey.harsha;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+        import android.os.Bundle;
+        import android.support.v7.app.AppCompatActivity;
+        import android.support.v7.widget.Toolbar;
+        import android.view.View;
+        import android.widget.Button;
+        import android.widget.ImageView;
 
 
-public class MainActivity extends ActionBarActivity {
 
+public class MainActivity extends AppCompatActivity {
+    Button button_map, button_photo;
+    public static boolean cam_flag = false;
+    public static String picturePath;//refer to browse file
+    public static ImageView BrowseView;//refer to browse file
+    public static boolean browse_flag = false;//refer to photo activity.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        //getActionBar().setTitle("Home page");
+        button_map = (Button) findViewById(R.id.map);//created maps button
+        button_photo = (Button) findViewById(R.id.btnSelectPhoto);
 
-
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public void btnSelectPhoto(View v) {
+        //This code redirects from main page to the maps page.
+        Intent redirect = new Intent(MainActivity.this, activity_maps.class);
+        startActivity(redirect);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void activity_maps(View v) {
+        //This code redirects to the photo activity.
+        Intent redirect = new Intent(MainActivity.this, SignupActivity.class);
+        startActivity(redirect);
     }
+
+
+
 }

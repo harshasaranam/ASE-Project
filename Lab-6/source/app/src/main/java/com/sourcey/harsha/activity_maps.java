@@ -89,7 +89,8 @@ public class activity_maps extends FragmentActivity implements OnMapReadyCallbac
             if (cam_flag) {
                 System.out.println("in cam path----------------->cam flag ::" + cam_flag);
                 mMap.addMarker(new MarkerOptions().position(userCurrentLocationCorodinates).title("Your current address.").snippet(userAddress.toString()).icon(BitmapDescriptorFactory.fromBitmap(thumbnail)));//Getting bitmap pic from PhotoActivity page.
-                //to locate a pic from drawable folder -->BitmapDescriptorFactory.fromResource(R.drawable.marker_maps)));
+                //to locate a pic from drawable folder -->
+                 BitmapDescriptorFactory.fromResource(R.drawable.marker_maps);
 
 
             } else if (browse_flag) {

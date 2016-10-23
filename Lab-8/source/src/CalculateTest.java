@@ -5,8 +5,8 @@ import org.junit.Test;
 public class CalculateTest {
 
 	Calculate calculation = new Calculate();
-	char sum = calculation.sum(100);
-	char testSum = 'A';
+	char sum = calculation.sum(80);
+	char testSum = 'C';
 
 	@Test
 	public void testSum() {
